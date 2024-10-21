@@ -44,7 +44,7 @@ data_1 <- data %>% filter(data$AGE>=6)
 # - x = slide number (starts from 1, x=1 is slide 1)
 # - y = stool sample number (starts from _, y =1 is sample 2)
 
-# Ensure PARST_ST_COLCTD[X] records are present for all individuals
+# Ensure PARST_ST_COLCTD[X] records are present for all individuals with no NA recorded so PARST_ST_COLCTD[x] used to quality check PARST_ST_DCOLT[x].
 summary(data_1$PARST_ST_COLCTD)
 #14 individuals recorded as NA
 #Ensure that for 14 individuals all associated egg count data_1 is NA
@@ -138,7 +138,7 @@ data_1$PARST_ST_DCOLT <- as.Date(data_1$PARST_ST_DCOLT, format = "%d/%m/%Y")
 data_1$PARST_ST_DCOLT1 <- as.Date(data_1$PARST_ST_DCOLT1, format = "%d/%m/%Y")
 data_1$PARST_ST_DCOLT2 <- as.Date(data_1$PARST_ST_DCOLT2, format ="%d/%m/%Y")
 
-# Extract year from dates for Buhirigi
+# Extract year from dates for Buhirigi to account for split baseline
 data_1$year_st1[data_1$SCHL_AT_ENROL==1]<- year(data_1$PARST_ST_DCOLT[data_1$SCHL_AT_ENROL==1])
 data_1$year_st2[data_1$SCHL_AT_ENROL==1] <- year(data_1$PARST_ST_DCOLT1[data_1$SCHL_AT_ENROL==1])
 data_1$year_st3[data_1$SCHL_AT_ENROL==1] <- year(data_1$PARST_ST_DCOLT2[data_1$SCHL_AT_ENROL==1])
@@ -149,7 +149,7 @@ table(data_1$year_st1[data_1$SCHL_AT_ENROL==1], data_1$year_st3[data_1$SCHL_AT_E
 table(data_1$year_st2[data_1$SCHL_AT_ENROL==1], data_1$year_st3[data_1$SCHL_AT_ENROL==1])
 #None found
 
-#Code Kaiso as 2021 for all year variables.
+#Kaiso examinations all took place in 2021, code year variables as 2021 for Kaiso Participants.
 
 data_1$year_st1[data_1$SCHL_AT_ENROL==2]<- 2021
 data_1$year_st2[data_1$SCHL_AT_ENROL==2]<- 2021
